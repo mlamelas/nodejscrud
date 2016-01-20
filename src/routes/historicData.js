@@ -45,17 +45,25 @@ router.route('/')
     //POST a new historicData
     .post(function(req, res) {
         // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
-        var name = req.body.name;
-        var badge = req.body.badge;
-        var dob = req.body.dob;
-        var company = req.body.company;
-        var isloved = req.body.isloved;
+		var id = req.body.id;
+        var group_id = req.body.group_id;
+        var actual_instance_type = req.body.actual_instance_type;
+        var actual_cost = req.body.actual_cost;
+        var actual_aws_zone = req.body.actual_aws_zone;
+        var start_date = req.body.start_date;
+        var end_date = req.body.end_date;
+        var savings = req.body.savings;
+
         //call the create function for our database
         mysql.model('historicData').create({
-            name : name,
-            badge : badge,
-            dob : dob,
-            isloved : isloved
+			id : id,
+			group_id : group_id,
+			actual_instance_type : actual_instance_type,
+			actual_cost : actual_cost,
+			actual_aws_zone : actual_aws_zone,
+			start_date : start_date,
+		    end_date : end_date,
+            savings : savings
         }, function (err, historicData) {
               if (err) {
                   res.send("There was a problem adding the information to the database.");
@@ -123,19 +131,19 @@ router.route('/:id')
         console.log('GET Error: There was a problem retrieving: ' + err);
       } else {
         console.log('GET Retrieving ID: ' + historicData._id);
-        var historicDatadob = historicData.dob.toISOString();
-        historicDatadob = historicDatadob.substring(0, historicDatadob.indexOf('T'))
-        res.format({
-          html: function(){
+        var historicDatasd = historicData.start_date.toISOString();
+        historicDatasd = historicDatasd.substring(0, historicDatasd.indexOf('T'))
+			res.format({
+			html: function(){
               res.render('historicData/show', {
-                "historicDatadob" : historicDatadob,
+                "historicDatasd" : historicDatasd,
                 "historicData" : historicData
               });
           },
           json: function(){
               res.json(historicData);
           }
-  	});
+		});
       }
     });
   });
@@ -150,14 +158,14 @@ router.get('/:id/edit', function(req, res) {
             //Return the historicData
             console.log('GET Retrieving ID: ' + historicData._id);
             //format the date properly for the value to show correctly in our edit form
-          var historicDatadob = historicData.dob.toISOString();
-          historicDatadob = historicDatadob.substring(0, historicDatadob.indexOf('T'))
+          var historicDatasd = historicData.start_date.toISOString();
+          historicDatasd = historicDatasd.substring(0, historicDatasd.indexOf('T'))
             res.format({
                 //HTML response will render the 'edit.jade' template
                 html: function(){
-                       res.render('historicDatas/edit', {
+                       res.render('historicData/edit', {
                           title: 'HistoricData' + historicData._id,
-                        "historicDatadob" : historicDatadob,
+                        "historicDatasd" : historicDatasd,
                           "historicData" : historicData
                       });
                  },
@@ -173,20 +181,27 @@ router.get('/:id/edit', function(req, res) {
 //PUT to update a historicData by ID
 router.put('/:id/edit', function(req, res) {
     // Get our REST or form values. These rely on the "name" attributes
-    var name = req.body.name;
-    var badge = req.body.badge;
-    var dob = req.body.dob;
-    var company = req.body.company;
-    var isloved = req.body.isloved;
+	var id = req.body.id;
+    var group_id = req.body.group_id;
+    var actual_instance_type = req.body.actual_instance_type;
+    var actual_cost = req.body.actual_cost;
+    var actual_aws_zone = req.body.actual_aws_zone;
+    var start_date = req.body.start_date;
+    var end_date = req.body.end_date;
+    var savings = req.body.savings;
 
    //find the document by ID
         mysql.model('HistoricData').findById(req.id, function (err, historicData) {
             //update it
             historicData.update({
-                name : name,
-                badge : badge,
-                dob : dob,
-                isloved : isloved
+				id : id,
+				group_id : group_id,
+				actual_instance_type : actual_instance_type,
+				actual_cost : actual_cost,
+				actual_aws_zone : actual_aws_zone,
+				start_date : start_date,
+				end_date : end_date,
+				savings : savings
             }, function (err, blobID) {
               if (err) {
                   res.send("There was a problem updating the information to the database: " + err);
