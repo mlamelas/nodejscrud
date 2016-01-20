@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var historicData= require('./routes/historicData');
 
-var db = require('./model/db');
-var historicData = require('./model/historic_data');
+var historic_data = require('./model/historic_data');
 
 
 var app = express();
