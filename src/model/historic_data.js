@@ -1,12 +1,12 @@
-var mysql = require('mysql');
-var historicDataSchema = new mysql.Schema({
-	id: {type: 'increments', nullable: false, primary: true},
-	group_id: {type: 'integer', nullable: false, unsigned: true},
-	actual_instance_type: {type: 'string', maxlength: 10, nullable: false},
-	actual_cost: {type: 'float'},
-	actual_aws_zone: {type: 'string', maxlength: 10, nullable: false},
-	start_date: {type: 'dateTime', nullable: false},
-	end_date: {type: 'dateTime', nullable: true},
-	savings: {type: 'float'}
-	});
-mysql.model('HistoricData',historicDataSchema);
+var sequelize= require('sequelize');
+
+var HistoricData = sequelize.define('historicData', {
+    id: {type: Seq.INTEGER, autoIncrement: true, primaryKey: true},
+	group_id: {type: Seq.INTEGER},
+    actual_instance_type: {type: Seq.STRING},
+    actual_cost: {type: Seq.Float},
+    actual_aws_zone: {type: Seq.STRING},
+    start_date: {type: Seq.Date},
+    end_date: {type: Seq.Date},
+    savings: {type: Seq.Float}
+  }

@@ -1,5 +1,6 @@
 var express = require('express'),
     router = express.Router(),
+    mysql = require('mysql'), //mysql connection
     bodyParser = require('body-parser'), //parses information from POST
     methodOverride = require('method-override'); //used to manipulate POST
 
@@ -20,7 +21,7 @@ router.route('/')
     //GET all historicData
     .get(function(req, res, next) {
         //retrieve all historicData from Mysql
-        HistoricData.find({}, function (err, historicData) {
+        mysql.model('HistoricData').find({}, function (err, historicData) {
               if (err) {
                   return console.error(err);
               } else {
@@ -96,7 +97,7 @@ router.get('/new', function(req, res) {
 router.param('id', function(req, res, next, id) {
     //console.log('validating ' + id + ' exists');
     //find the ID in the Database
-    HistoricData.findById(id, function (err, historicData) {
+    mysql.model('HistoricData').findById(id, function (err, historicData) {
         //if it isn't found, we are going to repond with 404
         if (err) {
             console.log(id + ' was not found');
@@ -125,7 +126,7 @@ router.param('id', function(req, res, next, id) {
 
 router.route('/:id')
   .get(function(req, res) {
-    HistoricData.findById(req.id, function (err, historicData) {
+    mysql.model('HistoricData').findById(req.id, function (err, historicData) {
       if (err) {
         console.log('GET Error: There was a problem retrieving: ' + err);
       } else {
@@ -164,7 +165,7 @@ router.route('/:id')
 //GET the individual historicData by Mysql ID
 router.get('/:id/edit', function(req, res) {
     //search for the historicData within Mysql
-    HistoricData.findById(req.id, function (err, historicData) {
+    mysql.model('HistoricData').findById(req.id, function (err, historicData) {
         if (err) {
             console.log('GET Error: There was a problem retrieving: ' + err);
         } else {
@@ -218,7 +219,7 @@ router.put('/:id/edit', function(req, res) {
     var savings = req.body.savings;
 
    //find the document by ID
-        HistoricData.findById(req.id, function (err, historicData) {
+        mysql.model('HistoricData').findById(req.id, function (err, historicData) {
             //update it
             historicData.update({
 				id : id,
@@ -252,7 +253,7 @@ router.put('/:id/edit', function(req, res) {
 //DELETE a HistoricData by ID
 router.delete('/:id/edit', function (req, res){
     //find historicData by ID
-    HistoricData.findById(req.id, function (err, historicData) {
+    mysql.model('HistoricData').findById(req.id, function (err, historicData) {
         if (err) {
             return console.error(err);
         } else {

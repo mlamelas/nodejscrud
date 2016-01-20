@@ -1,8 +1,6 @@
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : '172.17.0.2',
-  user     : 'demo',
-  password : 'demo',
-  database : 'demo'
+var sequelize = require('sequelize');
+
+var sequelize = new Sequelize('demo', 'demo', 'demo', {
+  host: '172.17.0.2',
+  dialect: 'mysql'
 });
-connection.connect();
