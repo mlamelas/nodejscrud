@@ -144,6 +144,20 @@ router.route('/:id')
               res.json(historicData);
           }
 		});
+        var historicDataed = historicData.end_date.toISOString();
+	historicDataed = historicDataed.substring(0, historicDataed.indexOf('T'))
+                        res.format({
+                        html: function(){
+              res.render('historicData/show', {
+                "historicDataed" : historicDataed,
+                "historicData" : historicData
+              });
+          },
+          json: function(){
+              res.json(historicData);
+          }
+                });
+
       }
     });
   });
@@ -174,6 +188,20 @@ router.get('/:id/edit', function(req, res) {
                        res.json(historicData);
                  }
             });
+	  var historicDataed = historicData.end_date.toISOString();
+        historicDataed = historicDataed.substring(0, historicDataed.indexOf('T'))
+                        res.format({
+                        html: function(){
+              res.render('historicData/show', {
+                "historicDataed" : historicDataed,
+                "historicData" : historicData
+              });
+          },
+          json: function(){
+              res.json(historicData);
+          }
+                });
+
         }
     });
 });
