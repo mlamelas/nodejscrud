@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    h1.
+        Infophoto #{historicData._id}
+    p Group ID: #{historicData.group_id}
+    p Actual Instance Type: #{historicData.actual_instance_type}
+    p Actual Cost: #{historicData.actual_cost}
+    p Actual AWS Zone: #{historicData.actual_aws_zone}
+    p Start Date: #{historicDatasd}
+    p End Date: #{historicDataed}
+    p Savings: #{historicData.savings}

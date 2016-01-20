@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+    h1.
+        #{title}
+    form#formAddHistoricData(name="addhistoricData",method="post",action="/historicData")
+        p Group ID: 
+            input#inputGroup_id(type="text", name="group_id")
+		p Actual Instance Type: 
+            input#inputActual_instance_type(type="text", name="actual_instance_type")
+		p Actual Cost: 
+            input#inputActual_cost Type(type="text", name="actual_cost")
+		p Actual AWS Zone: 
+            input#inputActual_aws_zone Type(type="text", name="actual_aws_zone")
+		p Start Date: 
+            input#inputStart_date Type(type="date", name="start_date")
+		p End Date: 
+            input#inputEnd_date Type(type="date", name="end_date")
+		p Savings: 
+            input#inputSavings Type(type="text", name="savings")
+		p
+            button#btnSubmit(type="submit") submit
