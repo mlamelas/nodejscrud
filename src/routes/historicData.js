@@ -1,5 +1,6 @@
 var express = require('express'),
     router = express.Router(),
+    historic_data=require('../model/historic_data')	
     bodyParser = require('body-parser'), //parses information from POST
     methodOverride = require('method-override'); //used to manipulate POST
 
@@ -20,7 +21,7 @@ router.route('/')
     //GET all historicData
     .get(function(req, res, next) {
         //retrieve all historicData from Mysql
-        HistoricData.find({}, function (err, historicData) {
+        historic_data.HistoricData.find({}, function (err, historicData) {
               if (err) {
                   return console.error(err);
               } else {
